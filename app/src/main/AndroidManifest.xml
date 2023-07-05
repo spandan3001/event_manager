@@ -29,7 +29,7 @@
         <activity android:name=".activities.EventBoard.EventBoardActivity" />
         <activity android:name=".activities.Accounts.SignUpActivity" />
         <activity android:name=".activities.EventMaker.AddEventActivity" />
-        <activity android:name=".activities.EventMaker.EventPageActivity"></activity>
+        <activity android:name=".activities.EventMaker.EventPageActivity" />
     </application>
 
 </manifest>

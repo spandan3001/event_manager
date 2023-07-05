@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,7 +32,7 @@ public class RequestedEventsActivity extends NavigationDrawer {
     String user;
     AppCompatActivity activity;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +64,16 @@ public class RequestedEventsActivity extends NavigationDrawer {
                             if(dataSnapshot.hasChild("type")){
                                 Log.d("typevalue",""+dataSnapshot.child("type").getValue().toString());
                                 user=dataSnapshot.child("type").getValue().toString();
-                                if(user.equals("admin")){
-                                    requestedEventsTemplate = new AdminRequest();
-                                }
-                                else if(user.equals("student")){
-                                    requestedEventsTemplate = new StudentRequest();
-                                }
-                                else if(user.equals("outsider")){
-                                    requestedEventsTemplate = new OutsiderRequest();
+                                switch (user) {
+                                    case "admin":
+                                        requestedEventsTemplate = new AdminRequest();
+                                        break;
+                                    case "student":
+                                        requestedEventsTemplate = new StudentRequest();
+                                        break;
+                                    case "outsider":
+                                        requestedEventsTemplate = new OutsiderRequest();
+                                        break;
                                 }
                                 requestedEventsTemplate.run(activity,uid);
                             }
@@ -102,10 +105,12 @@ public class RequestedEventsActivity extends NavigationDrawer {
             uid = currentUser.getUid();
             String email = currentUser.getEmail();
             String name = currentUser.getDisplayName();
+            Toast.makeText(this,"UserFound"+uid+email+name,Toast.LENGTH_SHORT).show();
+
             Log.d("UserFound"+uid+email+name,""+currentUser);
         }
         else{
-            Log.d("NoUserFound",""+currentUser);
+            Toast.makeText(this,"User Not Found",Toast.LENGTH_SHORT).show();
         }
     }
 }

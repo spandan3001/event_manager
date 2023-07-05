@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class SignUpActivity extends AppCompatActivity {
 
     // UI references.
@@ -203,16 +205,19 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                                 if (stu.isChecked()) {
-                                    acc.makeStudent(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), Integer.parseInt(mBatchView.getText().toString()), mSchoolView.getText().toString(), em, pas, studRef);
+                                    assert user != null;
+                                    acc.makeStudent(user.getUid(), mIdView.getText().toString(), String.valueOf(mNameView.getText()), Integer.parseInt(mBatchView.getText().toString()), mSchoolView.getText().toString(), em, pas, studRef);
                                 } else if (adm.isChecked()) {
-                                    acc.makeAdmin(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), em, pas, adminRef);
+                                    assert user != null;
+                                    acc.makeAdmin(user.getUid(), mIdView.getText().toString(), String.valueOf(mNameView.getText()), em, pas, adminRef);
                                 } else {
-                                    acc.makeOutsider(user.getUid(), mNameView.getText().toString(), em, pas, outRef);
+                                    assert user != null;
+                                    acc.makeOutsider(user.getUid(), String.valueOf(mNameView.getText()), em, pas, outRef);
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.
-//                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignUpActivity.this, "Authentication failed. " + task.getException().getMessage(),
+                                //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(SignUpActivity.this, "Authentication failed. " + Objects.requireNonNull(task.getException()).getMessage(),
                                         Toast.LENGTH_SHORT).show();
                                 //updateUI(null);
                             }

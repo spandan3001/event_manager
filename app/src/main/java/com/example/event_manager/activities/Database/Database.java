@@ -19,12 +19,12 @@ public class Database {
         databaseReference.push().setValue(event);
     }
 
-    /**
-     * @param event
-     * @param databaseReference
-     * @param uid
-     * @param user
-     */
+//    /**
+//     * @param event
+//     * @param databaseReference
+//     * @param uid
+//     * @param user
+//     */
     public void pendingEvent(Event event, DatabaseReference databaseReference,String uid,String user){
         this.event = event;
         this.databaseReference = databaseReference;

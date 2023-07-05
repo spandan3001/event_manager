@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.event_manager.R;
 import com.example.event_manager.activities.Accounts.SignInActivity;
+import com.example.event_manager.activities.BookmarksActivity;
 import com.example.event_manager.activities.EventBoard.EventBoardActivity;
 import com.example.event_manager.activities.TemplatePattern.RequestedEventsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -91,11 +92,11 @@ public abstract class NavigationDrawer extends AppCompatActivity
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             this.startActivity(intent);
         }else if (id == R.id.nav_mark) {
-//            intent = new Intent(this, BookmarksActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            this.startActivity(intent);
+            intent = new Intent(this, BookmarksActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            this.startActivity(intent);
 
-        } else if (id == R.id.nav_request) {
+        }else if (id == R.id.nav_request) {
             intent = new Intent(this, RequestedEventsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             this.startActivity(intent);

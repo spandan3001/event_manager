@@ -28,7 +28,7 @@ public class BookmarksActivity extends NavigationDrawer {
     EventBoardSingleton eventBoardSingleton;
     Context context;
 
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
     @Override

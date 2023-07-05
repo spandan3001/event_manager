@@ -62,13 +62,10 @@ public class SignInActivity extends AppCompatActivity {
         adminRef= myRef.child("Admin");
         outRef = myRef.child("Outsider");
 
-        mSignUpView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-            }
+        mSignUpView.setOnClickListener(view -> {
+            // Start the Signup activity
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
         });
     }
 
