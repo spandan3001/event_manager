@@ -1,5 +1,7 @@
 package com.example.event_manager.activities.Accounts;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,15 +12,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.event_manager.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.event_manager.activities.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -93,7 +89,6 @@ public class SignUpActivity extends AppCompatActivity {
         mNameViewa.setVisibility(View.GONE);
         mSchoolViewa.setVisibility(View.GONE);
         mBatchViewa.setVisibility(View.GONE);
-        signUp.setVisibility(View.GONE);
         confirm.setVisibility(View.GONE);
         change.setVisibility(View.GONE);
 
@@ -116,13 +111,10 @@ public class SignUpActivity extends AppCompatActivity {
 
         acc = new AccountMaker();
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
-            }
+        signIn.setOnClickListener(view -> {
+            // Start the Signup activity
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -132,10 +124,9 @@ public class SignUpActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             // Get Post object and use the values to update the UI
 
-            if(dataSnapshot.exists()){
+            if (dataSnapshot.exists()) {
                 returnedEmail = dataSnapshot.getValue(String.class).toString();
-            }
-            else {
+            } else {
                 returnedEmail = "";
             }
         }
@@ -155,18 +146,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         int id = view.getId();
         if (id == R.id.email_sign_up_button) {
-            mSchoolView.setEnabled(false);
-            mEmailView.setEnabled(false);
-            mIdView.setEnabled(false);
-            adm.setEnabled(false);
-            stu.setEnabled(false);
-            ots.setEnabled(false);
-            mNameView.setEnabled(false);
-            mBatchView.setEnabled(false);
-            mPasswordView.setEnabled(false);
-            signUp.setVisibility(View.GONE);
-            change.setVisibility(View.VISIBLE);
-            confirm.setVisibility(View.VISIBLE);
 
 
             if (mPasswordView.getText().toString().trim().equals("")) {
@@ -174,121 +153,37 @@ public class SignUpActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 return;
             }
-
-            if (stu.isChecked()) {
-                studID = mIdView.getText().toString();
-                preStud.child(studID).addValueEventListener(userListener);
-                if (returnedEmail != null && !(returnedEmail.trim().equals(em.trim()))) {
-                    Toast.makeText(SignUpActivity.this, "RegNo did not match Email",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-            } else if (adm.isChecked()) {
-                adminID = mIdView.getText().toString();
-                preAdm.child(adminID).addValueEventListener(userListener);
-                if (returnedEmail != null && !(returnedEmail.trim().equals(em.trim()))) {
-                    Toast.makeText(SignUpActivity.this, "RegNo did not match Email",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-
             // Create User if Everything Everything passes
             mAuth.createUserWithEmailAndPassword(em, pas)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                    .addOnCompleteListener( task -> {
 
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                //Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
+                            makeToast(user.getUid());
 
-                                if (stu.isChecked()) {
-                                    assert user != null;
-                                    acc.makeStudent(user.getUid(), mIdView.getText().toString(), String.valueOf(mNameView.getText()), Integer.parseInt(mBatchView.getText().toString()), mSchoolView.getText().toString(), em, pas, studRef);
-                                } else if (adm.isChecked()) {
-                                    assert user != null;
-                                    acc.makeAdmin(user.getUid(), mIdView.getText().toString(), String.valueOf(mNameView.getText()), em, pas, adminRef);
-                                } else {
-                                    assert user != null;
-                                    acc.makeOutsider(user.getUid(), String.valueOf(mNameView.getText()), em, pas, outRef);
-                                }
+                            if (stu.isChecked()) {
+                                acc.makeStudent(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), Integer.parseInt(mBatchView.getText().toString()), mSchoolView.getText().toString(), em, pas, studRef);
+                            } else if (adm.isChecked()) {
+                                acc.makeAdmin(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), em, pas, adminRef);
                             } else {
-                                // If sign in fails, display a message to the user.
-                                //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignUpActivity.this, "Authentication failed. " + Objects.requireNonNull(task.getException()).getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
+                                acc.makeOutsider(user.getUid(), mNameView.getText().toString(), em, pas, outRef);
                             }
-                        }
-                    });
-        } else if (id == R.id.change) {
-            mSchoolView.setEnabled(true);
-            mEmailView.setEnabled(true);
-            mIdView.setEnabled(true);
-            adm.setEnabled(true);
-            stu.setEnabled(true);
-            ots.setEnabled(true);
-            mNameView.setEnabled(true);
-            mBatchView.setEnabled(true);
-            mPasswordView.setEnabled(true);
-            signUp.setVisibility(View.VISIBLE);
-            change.setVisibility(View.GONE);
-            confirm.setVisibility(View.GONE);
-        } else if (id == R.id.confirm) {
-            if (mPasswordView.getText().toString().trim().equals("")) {
-                Toast.makeText(SignUpActivity.this, "Password Field Cannot Be Empty",
-                        Toast.LENGTH_LONG).show();
-                return;
-            }
-            if (stu.isChecked()) {
-                studID = mIdView.getText().toString();
-                preStud.child(studID).addValueEventListener(userListener);
-                if (returnedEmail != null && !(returnedEmail.trim().equals(em.trim()))) {
-                    Toast.makeText(SignUpActivity.this, "RegNo did not match Email",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-            } else if (adm.isChecked()) {
-                adminID = mIdView.getText().toString();
-                preAdm.child(adminID).addValueEventListener(userListener);
-                if (returnedEmail != null && !(returnedEmail.trim().equals(em.trim()))) {
-                    Toast.makeText(SignUpActivity.this, "RegNo did not match Email",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-
-            // Create User if Everything Everything passes
-            mAuth.createUserWithEmailAndPassword(em, pas)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                //Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-
-                                if (stu.isChecked()) {
-                                    acc.makeStudent(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), Integer.parseInt(mBatchView.getText().toString()), mSchoolView.getText().toString(), em, pas, studRef);
-                                } else if (adm.isChecked()) {
-                                    acc.makeAdmin(user.getUid(), mIdView.getText().toString(), mNameView.getText().toString(), em, pas, adminRef);
-                                } else {
-                                    acc.makeOutsider(user.getUid(), mNameView.getText().toString(), em, pas, outRef);
-                                }
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(SignUpActivity.this, "Authentication failed. " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
+                            makeToast("Authentication success");
+                        } else {
+                            // If sign in fails, display a message to the user.
+//                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignUpActivity.this, "Authentication failed. " + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
                         }
                     });
             // Go to sign in if successful
             Intent successIntent = new Intent(this, SignInActivity.class);
             startActivity(successIntent);
+
         } else if (id == R.id.student) {
             mNameViewa.setVisibility(View.VISIBLE);
             mIdViewa.setVisibility(View.VISIBLE);
@@ -311,6 +206,11 @@ public class SignUpActivity extends AppCompatActivity {
             mNameViewa.setVisibility(View.VISIBLE);
             mIdViewa.setVisibility(View.GONE);
             signUp.setVisibility(View.VISIBLE);
+            mPasswordView.setVisibility(View.VISIBLE);
         }
+    }
+    void makeToast(String message){
+        Toast.makeText(SignUpActivity.this, message,
+                Toast.LENGTH_SHORT).show();
     }
 }

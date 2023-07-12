@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.Database.Database;
 import com.example.event_manager.activities.EventMaker.Event;
 import com.example.event_manager.activities.NavigationDrawer.NavigationDrawer;
@@ -355,7 +355,7 @@ public class EventBoardActivity extends NavigationDrawer {
             Log.d("UserFound",""+currentUser);
         }
         else{
-            Log.d("NoUserFound",""+currentUser);
+            Log.d("No UserFound",""+currentUser);
         }
     }
 }

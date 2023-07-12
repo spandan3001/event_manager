@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,7 +15,10 @@
         android:theme="@style/Theme.Event_manager"
         tools:targetApi="31">
         <activity
-            android:name=".activities.Accounts.SignInActivity"
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Accounts.SignInActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,13 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NavigationDrawer.NavigationDrawer" />
-        <activity android:name=".activities.TemplatePattern.RequestedEventsActivity" />
-        <activity android:name=".activities.BookmarksActivity" />
-        <activity android:name=".activities.EventBoard.EventBoardActivity" />
-        <activity android:name=".activities.Accounts.SignUpActivity" />
-        <activity android:name=".activities.EventMaker.AddEventActivity" />
-        <activity android:name=".activities.EventMaker.EventPageActivity" />
+        <activity android:name=".NavigationDrawer.NavigationDrawer" />
+        <activity android:name=".TemplatePattern.RequestedEventsActivity" />
+        <activity android:name=".BookmarksActivity" />
+        <activity android:name=".EventBoard.EventBoardActivity" />
+        <activity android:name=".Accounts.SignUpActivity" />
+        <activity android:name=".EventMaker.AddEventActivity" />
+        <activity android:name=".EventMaker.EventPageActivity" />
     </application>
 
 </manifest>

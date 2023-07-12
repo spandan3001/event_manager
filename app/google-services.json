@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "713495194985",
+    "firebase_url": "https://event-manager-33b48-default-rtdb.firebaseio.com",
     "project_id": "event-manager-33b48",
     "storage_bucket": "event-manager-33b48.appspot.com"
   },

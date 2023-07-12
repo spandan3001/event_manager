@@ -3,7 +3,7 @@ package com.example.event_manager.activities.TemplatePattern;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 

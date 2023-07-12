@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.EventMaker.Event;
 import com.example.event_manager.activities.EventMaker.EventPageActivity;
 import com.squareup.picasso.Picasso;
@@ -46,21 +46,18 @@ public class AndroidDataAdapter extends RecyclerView.Adapter<AndroidDataAdapter.
     @Override
     public void onBindViewHolder(final AndroidDataAdapter.ViewHolder holder, int i) {
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name = arrayList.get(position).name;
-                Log.d("imagename",name);
-                if(selected){
-                    holder.imageView.clearColorFilter();
-                    selected=false;
-                }
-                else{
-                    ColorFilter cf = new PorterDuffColorFilter(Color.RED,PorterDuff.Mode.SCREEN);
+        holder.imageView.setOnClickListener(view -> {
+            name = arrayList.get(position).name;
+            Log.d("image-name",name);
+            if(selected){
+                holder.imageView.clearColorFilter();
+                selected=false;
+            }
+            else{
+                ColorFilter cf = new PorterDuffColorFilter(Color.RED,PorterDuff.Mode.SCREEN);
 
-                    holder.imageView.setColorFilter(cf);
-                    selected=true;
-                }
+                holder.imageView.setColorFilter(cf);
+                selected=true;
             }
         });
 
@@ -90,7 +87,6 @@ public class AndroidDataAdapter extends RecyclerView.Adapter<AndroidDataAdapter.
         holder.timeText.setText("Starts: "+df.format(calendar.getTime()));
         holder.venueText.setText("Venue: "+arrayList.get(i).venue);
         holder.userText.setText(arrayList.get(i).poster);
-        //Log.d("getadapternames","1");
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +105,7 @@ public class AndroidDataAdapter extends RecyclerView.Adapter<AndroidDataAdapter.
             public void onClick(View view) {
 //                Toast.makeText(view.getContext(), "Event", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(mcontext,EventPageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                intent.putExtra("Event",position);
                 intent.putExtra("image",arrayList.get(position).image);
                 intent.putExtra("name",arrayList.get(position).name);
@@ -121,6 +118,7 @@ public class AndroidDataAdapter extends RecyclerView.Adapter<AndroidDataAdapter.
                 intent.putExtra("venue",arrayList.get(position).venue);
                 intent.putExtra("description",arrayList.get(position).description);
                 intent.putExtra("poster",arrayList.get(position).poster);
+
                 mcontext.startActivity(intent);
             }
         });

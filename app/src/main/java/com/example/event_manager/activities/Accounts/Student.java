@@ -17,6 +17,7 @@ public class Student implements User {
     }
 
     public void addToDB(DatabaseReference studRef) {
+
         studRef.child(this.key).child("ID").setValue(this.ID);
         studRef.child(this.key).child("name").setValue(this.name);
         studRef.child(this.key).child("batch").setValue(this.batch);

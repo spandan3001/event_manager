@@ -6,7 +6,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.EventBoard.EventBoardSingleton;
 import com.example.event_manager.activities.NavigationDrawer.NavigationDrawer;
 import com.squareup.picasso.Picasso;

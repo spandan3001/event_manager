@@ -15,9 +15,10 @@ public class Admin implements User {
 
     @Override
     public void addToDB(DatabaseReference adminRef) {
+        System.out.println(this.key);
         adminRef.child(this.key).child("ID").setValue(this.ID);
         adminRef.child(this.key).child("name").setValue(this.name);
-        adminRef.child(this.key).child("email").setValue(this.name);
+        adminRef.child(this.key).child("email").setValue(this.email);
         adminRef.child(this.key).child("password").setValue(this.password);
         adminRef.child(this.key).child("type").setValue("admin");
     }

@@ -20,9 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.event_manager.R;
+
 import com.example.event_manager.activities.Database.Database;
 import com.example.event_manager.activities.NavigationDrawer.NavigationDrawer;
+import com.example.event_manager.activities.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -223,22 +224,18 @@ public class AddEventActivity extends NavigationDrawer {
         });
 
         // Listener for Date - CALENDAR
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year,
-                                            int month, int dayOfMonth) {
-                mYear = year;
-                mMonth = month;
-                mDay = dayOfMonth;
-                calendarFrom.set(year, month, dayOfMonth);
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            mYear = year;
+            mMonth = month;
+            mDay = dayOfMonth;
+            calendarFrom.set(year, month, dayOfMonth);
 
-                selectedDate = new StringBuilder().append(mMonth + 1)
-                        .append("-").append(mDay).append("-").append(mYear)
-                        .append(" ").toString();
+            selectedDate = (mMonth + 1) +
+                    "-" + mDay + "-" + mYear +
+                    " ";
 
 
-                Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
         });
 
 
@@ -266,7 +263,7 @@ public class AddEventActivity extends NavigationDrawer {
         }
     }
 
-    private void uploadImage() {
+    private void uploadImage(){
 
         if(filePath != null)
         {
@@ -296,7 +293,7 @@ public class AddEventActivity extends NavigationDrawer {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(AddEventActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddEventActivity.this, "Failed:"+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -359,10 +356,10 @@ public class AddEventActivity extends NavigationDrawer {
 //         Apply the adapter to the spinner
         timeSpinner.setAdapter(adapter);
     }
-    public void getUserType(int uid){
-
-
-    }
+//    public void getUserType(int uid){
+//
+//
+//    }
 
     @Override
     public void onStart() {

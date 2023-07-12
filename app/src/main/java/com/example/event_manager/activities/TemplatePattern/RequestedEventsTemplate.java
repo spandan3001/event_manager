@@ -177,14 +177,9 @@ public abstract class RequestedEventsTemplate {
         if(isFeatureEnabled){
             System.out.println("showAddButton: Add to own pending list");
             addButton.show();
-            addButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                    Intent intent = new Intent(activity,AddEventActivity.class);
-                    activity.startActivity(intent);
-                }
+            addButton.setOnClickListener(view -> {
+                Intent intent = new Intent(activity,AddEventActivity.class);
+                activity.startActivity(intent);
             });
         }
     }

@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.Database.Database;
 import com.example.event_manager.activities.EventBoard.EventBoardSingleton;
 import com.example.event_manager.activities.EventMaker.Event;

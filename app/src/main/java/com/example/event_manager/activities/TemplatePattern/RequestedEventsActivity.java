@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.Database.Database;
 import com.example.event_manager.activities.EventMaker.Event;
 import com.example.event_manager.activities.NavigationDrawer.NavigationDrawer;
@@ -50,12 +50,13 @@ public class RequestedEventsActivity extends NavigationDrawer {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("datasnapshot",""+dataSnapshot);
+                Log.d("data snapshot",""+dataSnapshot);
 
                 for(DataSnapshot datas: dataSnapshot.getChildren()){
 
                     String child =datas.getKey();
                     Log.d("children",""+child);
+                    assert child != null;
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(child).child(uid);
                     ref.addValueEventListener(new ValueEventListener() {
 
@@ -105,7 +106,7 @@ public class RequestedEventsActivity extends NavigationDrawer {
             uid = currentUser.getUid();
             String email = currentUser.getEmail();
             String name = currentUser.getDisplayName();
-            Toast.makeText(this,"UserFound"+uid+email+name,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"UserFound",Toast.LENGTH_SHORT).show();
 
             Log.d("UserFound"+uid+email+name,""+currentUser);
         }

@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.event_manager.R;
+import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.Accounts.SignInActivity;
 import com.example.event_manager.activities.BookmarksActivity;
 import com.example.event_manager.activities.EventBoard.EventBoardActivity;

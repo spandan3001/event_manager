@@ -10,8 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.event_manager.R;
+
 import com.example.event_manager.activities.EventBoard.EventBoardActivity;
+import com.example.event_manager.activities.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     DatabaseReference outRef;
 
 
-    Intent i;
+    Intent intent;
 
 
 
@@ -51,7 +52,7 @@ public class SignInActivity extends AppCompatActivity {
         mPasswordView = findViewById(R.id.password);
         mSignUpView=findViewById(R.id.link_signup);
 
-        i = new Intent(this, EventBoardActivity.class);
+        intent = new Intent(this, EventBoardActivity.class);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -97,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
 //                                        finish();
 //                                        startActivity(i);
 //                                    }
-                                startActivity(i);
+                                startActivity(intent);
 
 //                                    updateUI(user);
                             } else {
