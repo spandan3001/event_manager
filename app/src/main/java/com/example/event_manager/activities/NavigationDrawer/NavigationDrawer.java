@@ -105,13 +105,14 @@ public abstract class NavigationDrawer extends AppCompatActivity
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             this.startActivity(intent);
 
-        }else if (id == R.id.nav_settings) {
-//            intent = new Intent(this, UserSettingsActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            this.startActivity(intent);
-        }else if (id == R.id.nav_notifications) {
-
         }
+//        else if (id == R.id.nav_settings) {
+////            intent = new Intent(this, UserSettingsActivity.class);
+////            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+////            this.startActivity(intent);
+//        }else if (id == R.id.nav_notifications) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
