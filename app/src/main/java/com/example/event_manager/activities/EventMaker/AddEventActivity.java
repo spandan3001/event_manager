@@ -40,7 +40,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class AddEventActivity extends NavigationDrawer {
@@ -218,7 +222,7 @@ public class AddEventActivity extends NavigationDrawer {
                 calendarTo.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendarTo.set(Calendar.MINUTE, minute);
 
-                Toast.makeText(getApplicationContext(), enHour + "  " + enMinute, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), enHour + "  " + enMinute, Toast.LENGTH_LONG).show();
 
             }
         });
@@ -235,7 +239,10 @@ public class AddEventActivity extends NavigationDrawer {
                     " ";
 
 
-            Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
+
+
+
+            //Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_SHORT).show();
         });
 
 
@@ -318,22 +325,34 @@ public class AddEventActivity extends NavigationDrawer {
         long startTime = calendarFrom.getTimeInMillis();
         long endTime = calendarTo.getTimeInMillis();
 
-        Event clonedEvent = (Event) eventsCache.getEvent(category);
 
-        clonedEvent.setCategory(category);
-        clonedEvent.setDescription(desc);
-        clonedEvent.setTime(time);
-        clonedEvent.setHeldBy(heldBy);
-        clonedEvent.setName(name);
-        clonedEvent.setVenue(venue);
-        clonedEvent.setStartTime(startTime);
-        clonedEvent.setEndTime(endTime);
-        clonedEvent.setImage(imagelink);
-        clonedEvent.setUid(uid);
-        clonedEvent.setDate(selectedDate);
-        clonedEvent.setPoster(poster);
-        db.pendingEvent(clonedEvent,myRef,uid,user);
-        this.finish();
+
+        long currentTime = java.lang.System.currentTimeMillis();
+        System.out.println(startTime+"---"+currentTime+"---"+endTime+"\n");
+
+        if(currentTime > startTime || currentTime > endTime ) {
+            Toast.makeText(getApplicationContext(), "Please enter the valid start or end date", Toast.LENGTH_LONG).show();
+        }
+        else{
+            //Toast.makeText(getApplicationContext(),currentDateAndTime,Toast.LENGTH_SHORT).show();
+
+            Event clonedEvent = (Event) eventsCache.getEvent(category);
+
+            clonedEvent.setCategory(category);
+            clonedEvent.setDescription(desc);
+            clonedEvent.setTime(time);
+            clonedEvent.setHeldBy(heldBy);
+            clonedEvent.setName(name);
+            clonedEvent.setVenue(venue);
+            clonedEvent.setStartTime(startTime);
+            clonedEvent.setEndTime(endTime);
+            clonedEvent.setImage(imagelink);
+            clonedEvent.setUid(uid);
+            clonedEvent.setDate(selectedDate);
+            clonedEvent.setPoster(poster);
+            db.pendingEvent(clonedEvent, myRef, uid, user);
+            this.finish();
+        }
     }
 
     public void setCategorySpinner() {

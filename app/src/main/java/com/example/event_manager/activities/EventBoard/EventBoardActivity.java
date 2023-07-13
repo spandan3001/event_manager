@@ -96,7 +96,7 @@ public class EventBoardActivity extends NavigationDrawer {
         resultsView = (TextView) findViewById(R.id.resultCount);
 
         mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int i) {
                         AndroidDataAdapter.position=i;

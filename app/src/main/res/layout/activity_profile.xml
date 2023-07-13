@@ -37,16 +37,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="Phone: +1 123-456-7890"
+        android:text=""
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/location_textview"
+        android:id="@+id/school_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:text="Location: New York, USA"
+        android:text=""
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/batch_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:text=""
         android:textSize="14sp" />
 
 </LinearLayout>

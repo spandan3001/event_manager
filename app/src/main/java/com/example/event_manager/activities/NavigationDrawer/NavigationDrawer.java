@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.event_manager.activities.ProfileActivity;
 import com.example.event_manager.activities.R;
 import com.example.event_manager.activities.Accounts.SignInActivity;
 import com.example.event_manager.activities.BookmarksActivity;
@@ -86,6 +87,9 @@ public abstract class NavigationDrawer extends AppCompatActivity
         Intent intent;
 
         if (id == R.id.nav_profile) {
+            intent = new Intent(this, ProfileActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            this.startActivity(intent);
 
         } else if (id == R.id.nav_board) {
             intent = new Intent(this, EventBoardActivity.class);
