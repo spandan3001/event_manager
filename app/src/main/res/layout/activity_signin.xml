@@ -6,14 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/background_clip"
     tools:context="com.example.event_manager.activities.Accounts.SignInActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        app:cardElevation="20dp">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EVENT MANAGER"
+            android:textSize="40dp"
+            android:textColor="@color/colorPrimary"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 

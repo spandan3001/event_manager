@@ -79,7 +79,7 @@ public abstract class NavigationDrawer extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -106,13 +106,6 @@ public abstract class NavigationDrawer extends AppCompatActivity
             this.startActivity(intent);
 
         }
-//        else if (id == R.id.nav_settings) {
-////            intent = new Intent(this, UserSettingsActivity.class);
-////            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////            this.startActivity(intent);
-//        }else if (id == R.id.nav_notifications) {
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
