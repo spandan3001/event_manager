@@ -20,7 +20,7 @@ public class OutsiderRequest extends RequestedEventsTemplate{
     @Override
     public void showpending(String uid) {
         pendingText.setVisibility(View.VISIBLE);
-        pendingText.setText("This Feature is not available for NonNustians.");
+        pendingText.setText("This Feature is not available for Non Mvitians.");
     }
 
     @Override
